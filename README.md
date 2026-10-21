@@ -2,15 +2,15 @@
 > **Не знаете, чем заняться? Сервис предлагает случайное занятие с учётом фильтров: дома или на улице, бюджет, время, компания. Пользователи могут предлагать свои занятия.**
 
 ## Команда 4
-- **Фирсова** (Тимлид) — [@WhiteW1ng](https://github.com/WhiteW1ng) 
-- **Илюшина** — [@Rekqi](https://github.com/Rekqi)
-- **Рудикова** — [@Colnovy](https://github.com/colnovy)
-- **Сашина** — [@alinapsih](https://github.com/alinasasina01-byte)
-- **Слинкина** — [@BlueLarddd](https://github.com/BlueLarddd)
+- **Фирсова Ю.М.** (Тимлид) — [@WhiteW1ng](https://github.com/WhiteW1ng) 
+- **Илюшина А.И.** — [@Rekqi](https://github.com/Rekqi)
+- **Рудикова Ю.А.** — [@Colnovy](https://github.com/colnovy)
+- **Сашина А.А.** — [@alinapsih](https://github.com/alinasasina01-byte)
+- **Слинкина Ю.В.** — [@BlueLarddd](https://github.com/BlueLarddd)
 
 ### Функционал первой версии
 - **Кнопка генерации случайного занятия** 
 - **Выбор фильтров** 
-- **Предложить свою идею** 
+- **Форма "Предложить свою идею"** 
 - **Возможность сохранить имею в избранное**
 - **Возможность переключиться на темную тему**
