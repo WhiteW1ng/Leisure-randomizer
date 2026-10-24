@@ -6,9 +6,8 @@
 - **Илюшина А.И.** — [@Rekqi](https://github.com/Rekqi)
 - **Рудикова Ю.А.** — [@Colnovy](https://github.com/colnovy)
 - **Сашина А.А.** — [@alinapsih](https://github.com/alinasasina01-byte)
-- **Слинкина Ю.В.** — [@BlueLarddd](https://github.com/BlueLarddd)
 
-### Функционал первой версии ---------
+### Функционал первой версии
 - **Кнопка генерации случайного занятия** 
 - **Выбор фильтров** 
 - **Форма "Предложить свою идею"** 
