@@ -15,6 +15,20 @@
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
+                    <x-nav-link :href="route('catalog')" :active="request()->routeIs('catalog')">
+                        Каталог
+                    </x-nav-link>
+                    <x-nav-link :href="route('favorites.index')" :active="request()->routeIs('favorites.*')">
+                        Избранное
+                    </x-nav-link>
+                    <x-nav-link :href="route('history.index')" :active="request()->routeIs('history.*')">
+                        История
+                    </x-nav-link>
+                    @if (Auth::user()->isAdmin())
+                        <x-nav-link :href="route('admin.suggested-ideas.index')" :active="request()->routeIs('admin.*')">
+                            Модерация
+                        </x-nav-link>
+                    @endif
                 </div>
             </div>
 
@@ -70,6 +84,20 @@
             <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('catalog')" :active="request()->routeIs('catalog')">
+                Каталог
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('favorites.index')" :active="request()->routeIs('favorites.*')">
+                Избранное
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('history.index')" :active="request()->routeIs('history.*')">
+                История
+            </x-responsive-nav-link>
+            @if (Auth::user()->isAdmin())
+                <x-responsive-nav-link :href="route('admin.suggested-ideas.index')" :active="request()->routeIs('admin.*')">
+                    Модерация
+                </x-responsive-nav-link>
+            @endif
         </div>
 
         <!-- Responsive Settings Options -->

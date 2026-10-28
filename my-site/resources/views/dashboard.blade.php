@@ -38,7 +38,15 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900 dark:text-gray-100">
-                    {{ __("You're logged in!") }}
+                    @include('partials.random-idea', ['action' => route('dashboard')])
+
+                    @if (auth()->user()->isAdmin())
+                        <div class="mt-8 border-t border-gray-200 pt-4 dark:border-gray-700">
+                            <a href="{{ route('admin.suggested-ideas.index') }}" class="text-sm font-medium text-indigo-600 hover:underline dark:text-indigo-300">
+                                Модерация предложенных идей →
+                            </a>
+                        </div>
+                    @endif
                 </div>
             </div>
         </div>
