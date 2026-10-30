@@ -16,7 +16,6 @@ class LocationTypeSeeder extends Seeder
             ['name' => 'дома'],
             ['name' => 'в ином помещении'],
             ['name' => 'на улице'],
-            ['name' => 'любой'],
         ];
 
         foreach ($locationTypes as $locationType) {

@@ -53,6 +53,6 @@ class SuggestedIdeaController extends Controller
         SuggestedIdea::create($validated);
 
         // 4. Возвращаем пользователя обратно с сообщением об успехе
-        return redirect()->route('dashboard')->with('success', 'Спасибо! Твоя идея отправлена на рассмотрение.');
+        return redirect('/')->with('success', 'Спасибо! Твоя идея отправлена на рассмотрение.');
     }
 }

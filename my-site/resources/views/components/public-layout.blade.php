@@ -15,7 +15,7 @@
                 @auth
                     <a href="{{ route('favorites.index') }}" class="rounded-md px-3 py-1.5 hover:underline">Избранное</a>
                     <a href="{{ route('history.index') }}" class="rounded-md px-3 py-1.5 hover:underline">История</a>
-                    <a href="{{ route('dashboard') }}" class="rounded-md border border-gray-300 px-4 py-1.5 hover:bg-white dark:border-gray-600 dark:hover:bg-gray-800">Личный кабинет</a>
+                    <a href="{{ url('/profile') }}" class="rounded-md px-3 py-1.5 hover:underline">Личный кабинет</a>
                 @else
                     <a href="{{ route('login') }}" class="rounded-md px-3 py-1.5 hover:underline">Войти</a>
                     <a href="{{ route('register') }}" class="rounded-md border border-gray-300 px-4 py-1.5 hover:bg-white dark:border-gray-600 dark:hover:bg-gray-800">Регистрация</a>
@@ -28,7 +28,28 @@
                 <p class="mb-4 rounded-lg border border-red-200 bg-red-50 p-4 text-red-700">{{ session('error') }}</p>
             @endif
             @if (session('success'))
-                <p class="mb-4 rounded-lg border border-green-200 bg-green-50 p-4 text-green-700">{{ session('success') }}</p>
+                <div id="success-toast" class="mb-4 rounded-lg border border-green-200 bg-green-50 p-4 text-green-700 dark:border-green-800 dark:bg-green-900/20 dark:text-green-300 flex justify-between items-center transition-opacity duration-500 ease-in-out">
+                    <span class="font-medium">{{ session('success') }}</span>
+                    <button onclick="hideToast()" class="ml-4 text-green-700 dark:text-green-300 hover:text-green-900 dark:hover:text-green-100 font-bold text-xl leading-none focus:outline-none" title="Закрыть">
+                        &times;
+                    </button>
+                </div>
+
+                <script>
+                    function hideToast() {
+                        const toast = document.getElementById('success-toast');
+                        if (toast) {
+                            toast.style.opacity = '0';
+                            setTimeout(() => {
+                                toast.style.display = 'none';
+                            }, 500);
+                        }
+                    }
+
+                    document.addEventListener('DOMContentLoaded', function() {
+                        setTimeout(hideToast, 5000);
+                    });
+                </script>
             @endif
 
             {{ $slot }}

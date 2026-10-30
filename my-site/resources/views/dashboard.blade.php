@@ -6,31 +6,31 @@
     </x-slot>
 
     {{-- Блок с сообщением об успехе (появляется только если оно есть) --}}
+       {{-- Блок с сообщением об успехе --}}
     @if (session('success'))
-        <div id="success-toast" class="max-w-7xl mx-auto sm:px-6 lg:px-8 mt-6">
-            <div class="p-4 bg-green-100 dark:bg-green-900 text-green-700 dark:text-green-200 rounded-lg shadow-sm border border-green-200 dark:border-green-800 flex justify-between items-center">
-                <span class="font-medium">{{ session('success') }}</span>
-                <button onclick="hideToast()" class="ml-4 text-green-700 hover:text-green-900 dark:text-green-200 dark:hover:text-green-100 focus:outline-none">
-                    ✕
-                </button>
-            </div>
+        <div id="success-toast" class="mb-4 p-4 bg-green-100 text-green-700 dark:bg-green-900 dark:text-green-200 rounded-lg shadow-sm flex justify-between items-center transition-opacity duration-500 ease-in-out">
+            <span class="font-medium">{{ session('success') }}</span>
+            <button onclick="hideToast()" class="ml-4 text-green-700 dark:text-green-200 hover:text-green-900 dark:hover:text-green-100 font-bold text-xl leading-none focus:outline-none" title="Закрыть">
+                &times;
+            </button>
         </div>
 
-        {{-- Скрипт, который скрывает сообщение через 5 секунд --}}
         <script>
+            // Функция для скрытия сообщения
             function hideToast() {
                 const toast = document.getElementById('success-toast');
                 if (toast) {
-                    toast.style.opacity = '0';
-                    toast.style.transition = 'opacity 0.5s ease';
+                    toast.style.opacity = '0'; // Запускаем анимацию исчезновения
                     setTimeout(() => {
-                        toast.style.display = 'none';
-                    }, 500); // Ждем полсекунды, пока пройдет анимация исчезновения
+                        toast.style.display = 'none'; // Полностью убираем из потока
+                    }, 500); // Ждем 500мс, пока пройдет CSS-анимация
                 }
             }
 
-            // Запускаем таймер на 5000 миллисекунд (5 секунд) при загрузке страницы
-            setTimeout(hideToast, 5000);
+            // Запускаем таймер автоматически при загрузке страницы
+            document.addEventListener('DOMContentLoaded', function() {
+                setTimeout(hideToast, 5000); // 5000 мс = 5 секунд
+            });
         </script>
     @endif
 

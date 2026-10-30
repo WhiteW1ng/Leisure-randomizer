@@ -13,9 +13,9 @@ Route::get('/', [RandomIdeaController::class, 'home'])
     ->middleware('throttle:60,1')
     ->name('home');
 
-Route::get('/dashboard', [RandomIdeaController::class, 'dashboard'])
-    ->middleware(['auth', 'verified', 'throttle:60,1'])
-    ->name('dashboard');
+Route::get('/dashboard', function () {
+    return redirect('/');
+})->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::get('/catalog', [CatalogController::class, 'index'])
     ->middleware('throttle:60,1')
