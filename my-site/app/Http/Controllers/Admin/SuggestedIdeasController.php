@@ -22,7 +22,7 @@ class SuggestedIdeasController extends Controller
     public function approve($id)
     {
         $suggested = SuggestedIdea::findOrFail($id);
-
+        
         // 1. Определяем основной тип локации (берём первое значение из массива)
         $mainLocationType = !empty($suggested->location_types) 
             ? $suggested->location_types[0] 
@@ -75,7 +75,7 @@ class SuggestedIdeasController extends Controller
 
         // 9. Меняем статус в таблице предложений
         $suggested->update(['status' => 'approved']);
-
+        \App\Models\AdminLog::logAction('approve', 'SuggestedIdea', $idea->id, "Идея: {$idea->id->title}");
         return redirect()->back()->with('success', "Идея «{$suggested->title}» одобрена и добавлена на сайт!");
     }
 
@@ -84,7 +84,7 @@ class SuggestedIdeasController extends Controller
     {
         $idea = SuggestedIdea::findOrFail($id);
         $idea->update(['status' => 'rejected']);
-
+        \App\Models\AdminLog::logAction('reject', 'SuggestedIdea', $idea->id, "Идея: {$idea->title}");
         return redirect()->back()->with('success', "Идея «{$idea->title}» отклонена.");
     }
 }
