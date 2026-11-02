@@ -10,9 +10,9 @@ class AdminMiddleware
 {
     public function handle(Request $request, Closure $next): Response
     {
-        // Если пользователь не вошёл или не админ — редирект на главную
+        // Если пользователь не вошёл или не админ — отдаём строгий 403 Forbidden
         if (!auth()->check() || !auth()->user()->isAdmin()) {
-            return redirect('/')->with('error', 'Доступ запрещён. Требуются права администратора.');
+            abort(403, 'Доступ запрещён. Требуются права администратора.');
         }
 
         return $next($request);
