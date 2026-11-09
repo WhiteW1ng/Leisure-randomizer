@@ -44,7 +44,7 @@ class RandomIdeaController extends Controller
 
             // Вошедшему пользователю записываем выпавшее занятие в историю
             if ($idea && auth()->check()) {
-                IdeaHistory::create(['user_id' => auth()->id(), 'idea_id' => $idea->id]);
+                auth()->user()->ideaHistory()->create(['idea_id' => $idea->id]);
             }
         }
 
