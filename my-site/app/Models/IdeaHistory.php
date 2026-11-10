@@ -9,7 +9,7 @@ class IdeaHistory extends Model
 {
     protected $table = 'idea_histories';
 
-    protected $fillable = ['user_id', 'idea_id'];
+    protected $fillable = ['idea_id'];
 
     const UPDATED_AT = null;
 

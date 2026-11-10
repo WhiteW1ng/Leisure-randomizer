@@ -13,6 +13,13 @@ Route::get('/', [RandomIdeaController::class, 'home'])
     ->middleware('throttle:60,1')
     ->name('home');
 
+<<<<<<< HEAD
+=======
+Route::get('/dashboard', function () {
+    return redirect('/');
+})->middleware(['auth', 'verified'])->name('dashboard');
+
+>>>>>>> c8bb101774e5a91fd1eb9bfa65342f30c67ce747
 Route::get('/catalog', [CatalogController::class, 'index'])
     ->middleware('throttle:60,1')
     ->name('catalog');

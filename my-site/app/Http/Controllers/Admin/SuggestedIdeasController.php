@@ -22,6 +22,7 @@ class SuggestedIdeasController extends Controller
     // Одобрить идею и перенести в основную базу
     public function approve($id)
     {
+<<<<<<< HEAD
         // Всё в одной транзакции: двойной клик или повторный запрос не создаст дубль идеи
         return DB::transaction(function () use ($id) {
             $suggested = SuggestedIdea::whereKey($id)->lockForUpdate()->firstOrFail();
@@ -31,6 +32,10 @@ class SuggestedIdeasController extends Controller
                 return redirect()->back()->with('error', 'Эта идея уже рассмотрена.');
             }
 
+=======
+        $suggested = SuggestedIdea::findOrFail($id);
+        
+>>>>>>> c8bb101774e5a91fd1eb9bfa65342f30c67ce747
         // 1. Определяем основной тип локации (берём первое значение из массива)
         $mainLocationType = !empty($suggested->location_types) 
             ? $suggested->location_types[0] 
@@ -83,7 +88,7 @@ class SuggestedIdeasController extends Controller
 
         // 9. Меняем статус в таблице предложений
         $suggested->update(['status' => 'approved']);
-
+        \App\Models\AdminLog::logAction('approve', 'SuggestedIdea', $idea->id, "Идея: {$idea->id->title}");
         return redirect()->back()->with('success', "Идея «{$suggested->title}» одобрена и добавлена на сайт!");
         });
     }
@@ -98,7 +103,7 @@ class SuggestedIdeasController extends Controller
         }
 
         $idea->update(['status' => 'rejected']);
-
+        \App\Models\AdminLog::logAction('reject', 'SuggestedIdea', $idea->id, "Идея: {$idea->title}");
         return redirect()->back()->with('success', "Идея «{$idea->title}» отклонена.");
     }
 }
