@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 
 class CatalogController extends Controller
 {
-    // Публичный каталог одобренных занятий с фильтрами и страницами
+
     public function index(Request $request)
     {
         $validated = $request->validate(IdeaFilter::rules());

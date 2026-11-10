@@ -11,7 +11,7 @@
 
             @if ($entries->isEmpty())
                 <p class="rounded-lg bg-white p-6 text-gray-700 shadow-sm dark:bg-gray-800 dark:text-gray-200">
-                    История пуста. Нажмите «Случайное занятие» на <a class="text-indigo-600 underline" href="{{ route('dashboard') }}">дашборде</a>, и выпавшее занятие появится здесь.
+                    История пуста. Нажмите «Случайное занятие» на <a class="text-indigo-600 underline" href="{{ route('home') }}">главной</a>, и выпавшее занятие появится здесь.
                 </p>
             @else
                 <div class="overflow-hidden rounded-lg bg-white shadow-sm dark:bg-gray-800">

@@ -30,6 +30,12 @@
             </a>
         @endauth
 
-        {{ $extra ?? '' }}
+        @if (!empty($reroll))
+            {{-- $reroll задаётся в контроллере и равен только 'any' или 'filters' --}}
+            <button type="submit" form="random-form" name="mode" value="{{ $reroll }}"
+                    class="rounded-lg border border-indigo-300 bg-white px-4 py-2 text-sm font-medium text-indigo-700 hover:bg-indigo-50 dark:bg-gray-700 dark:text-indigo-200">
+                Выбрать другое
+            </button>
+        @endif
     </div>
 </article>

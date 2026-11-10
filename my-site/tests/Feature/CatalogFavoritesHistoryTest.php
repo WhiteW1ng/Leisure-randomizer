@@ -108,7 +108,7 @@ class CatalogFavoritesHistoryTest extends TestCase
         $user = User::factory()->create();
         $idea = $this->idea('Лыжи');
 
-        $this->actingAs($user)->get('/dashboard?mode=any')->assertOk()->assertSee('Лыжи');
+        $this->actingAs($user)->get('/?mode=any')->assertOk()->assertSee('Лыжи');
 
         $this->assertDatabaseHas('idea_histories', ['user_id' => $user->id, 'idea_id' => $idea->id]);
         $this->actingAs($user)->get('/history')->assertOk()->assertSee('Лыжи');
@@ -130,7 +130,7 @@ class CatalogFavoritesHistoryTest extends TestCase
         $a = User::factory()->create();
         $b = User::factory()->create();
         $this->idea('Лыжи');
-        $this->actingAs($a)->get('/dashboard?mode=any');
+        $this->actingAs($a)->get('/?mode=any');
 
         $this->actingAs($b)->get('/history')->assertOk()->assertDontSee('Лыжи');
     }
@@ -154,11 +154,11 @@ class CatalogFavoritesHistoryTest extends TestCase
     public function test_admin_link_visible_only_for_admin(): void
     {
         $user = User::factory()->create();
-        $this->actingAs($user)->get('/dashboard')->assertOk()->assertDontSee('Модерация');
+        $this->actingAs($user)->get('/')->assertOk()->assertDontSee('Модерация');
 
         $admin = User::factory()->create();
         $admin->forceFill(['is_admin' => true])->save();
-        $this->actingAs($admin)->get('/dashboard')->assertOk()->assertSee('Модерация');
+        $this->actingAs($admin)->get('/')->assertOk()->assertSee('Модерация');
     }
 
     public function test_regular_user_cannot_open_moderation(): void

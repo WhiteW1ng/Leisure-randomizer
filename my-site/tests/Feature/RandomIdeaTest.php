@@ -102,11 +102,11 @@ class RandomIdeaTest extends TestCase
         $this->actingAs(User::factory()->create())->get('/suggest')->assertOk();
     }
 
-    public function test_dashboard_requires_login_and_shows_random_block(): void
+    public function test_home_is_the_only_main_page_and_dashboard_is_gone(): void
     {
-        $this->get('/dashboard')->assertRedirect('/login');
+        $this->get('/dashboard')->assertNotFound();
 
         $this->actingAs(User::factory()->create())
-            ->get('/dashboard')->assertOk()->assertSee('Случайное занятие');
+            ->get('/')->assertOk()->assertSee('Случайное занятие');
     }
 }

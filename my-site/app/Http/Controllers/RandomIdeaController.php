@@ -9,16 +9,10 @@ use Illuminate\Http\Request;
 
 class RandomIdeaController extends Controller
 {
-    // Публичная главная страница: доступна и гостям
+    // Главная страница: одна для всех (и для гостей, и для вошедших)
     public function home(Request $request)
     {
-        return view('welcome', $this->data($request));
-    }
-
-    // Дашборд для вошедших пользователей: тот же блок выбора
-    public function dashboard(Request $request)
-    {
-        return view('dashboard', $this->data($request));
+        return view('home', $this->data($request));
     }
 
     private function data(Request $request): array
@@ -49,6 +43,7 @@ class RandomIdeaController extends Controller
         }
 
         return [
+            'total'       => Idea::where('status', 'active')->count(),
             'rolled'      => $mode !== null,
             'idea'        => $idea,
             'useFilters'  => $useFilters,

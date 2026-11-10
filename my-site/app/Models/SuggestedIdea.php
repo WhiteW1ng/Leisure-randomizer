@@ -23,7 +23,6 @@ class SuggestedIdea extends Model
 
     const UPDATED_AT = null;
 
-    // Каст для автоматического преобразования JSON в массив и обратно
     protected $casts = [
         'seasons' => 'array',
         'companies' => 'array',

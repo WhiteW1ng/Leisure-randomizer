@@ -34,9 +34,7 @@
                 @include('partials.idea-card', [
                     'idea' => $idea,
                     'favoriteIds' => $favoriteIds ?? [],
-                    'extra' => new \Illuminate\Support\HtmlString(
-                        '<button type="submit" form="random-form" name="mode" value="'.($useFilters ? 'filters' : 'any').'" class="rounded-lg border border-indigo-300 bg-white px-4 py-2 text-sm font-medium text-indigo-700 hover:bg-indigo-50 dark:bg-gray-700 dark:text-indigo-200">Выбрать другое</button>'
-                    ),
+                    'reroll' => $useFilters ? 'filters' : 'any',
                 ])
             @else
                 <p class="rounded-lg border border-amber-200 bg-amber-50 p-4 text-amber-800">

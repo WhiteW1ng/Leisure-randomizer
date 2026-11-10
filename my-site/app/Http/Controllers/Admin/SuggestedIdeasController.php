@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\SuggestedIdea;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class SuggestedIdeasController extends Controller
 {
@@ -21,7 +22,14 @@ class SuggestedIdeasController extends Controller
     // Одобрить идею и перенести в основную базу
     public function approve($id)
     {
-        $suggested = SuggestedIdea::findOrFail($id);
+        // Всё в одной транзакции: двойной клик или повторный запрос не создаст дубль идеи
+        return DB::transaction(function () use ($id) {
+            $suggested = SuggestedIdea::whereKey($id)->lockForUpdate()->firstOrFail();
+
+            // Рассматриваем только то, что ещё на рассмотрении
+            if ($suggested->status !== 'pending') {
+                return redirect()->back()->with('error', 'Эта идея уже рассмотрена.');
+            }
 
         // 1. Определяем основной тип локации (берём первое значение из массива)
         $mainLocationType = !empty($suggested->location_types) 
@@ -77,12 +85,18 @@ class SuggestedIdeasController extends Controller
         $suggested->update(['status' => 'approved']);
 
         return redirect()->back()->with('success', "Идея «{$suggested->title}» одобрена и добавлена на сайт!");
+        });
     }
 
     // Отклонить идею
     public function reject($id)
     {
         $idea = SuggestedIdea::findOrFail($id);
+
+        if ($idea->status !== 'pending') {
+            return redirect()->back()->with('error', 'Эта идея уже рассмотрена.');
+        }
+
         $idea->update(['status' => 'rejected']);
 
         return redirect()->back()->with('success', "Идея «{$idea->title}» отклонена.");

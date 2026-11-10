@@ -13,10 +13,6 @@ Route::get('/', [RandomIdeaController::class, 'home'])
     ->middleware('throttle:60,1')
     ->name('home');
 
-Route::get('/dashboard', [RandomIdeaController::class, 'dashboard'])
-    ->middleware(['auth', 'verified', 'throttle:60,1'])
-    ->name('dashboard');
-
 Route::get('/catalog', [CatalogController::class, 'index'])
     ->middleware('throttle:60,1')
     ->name('catalog');
@@ -38,7 +34,9 @@ require __DIR__.'/auth.php';
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/suggest', [SuggestedIdeaController::class, 'create'])->name('suggest.create');
-    Route::post('/suggest', [SuggestedIdeaController::class, 'store'])->name('suggest.store');
+    Route::post('/suggest', [SuggestedIdeaController::class, 'store'])
+        ->middleware('throttle:10,1')
+        ->name('suggest.store');
 });
 
 Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {

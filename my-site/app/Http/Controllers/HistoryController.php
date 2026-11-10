@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 
 class HistoryController extends Controller
 {
-    // История выпавших занятий — только своя
+
     public function index(Request $request)
     {
         $entries = IdeaHistory::where('user_id', $request->user()->id)
@@ -19,11 +19,10 @@ class HistoryController extends Controller
         return view('history.index', compact('entries'));
     }
 
-    // Очистить свою историю
+
     public function clear(Request $request)
     {
         IdeaHistory::where('user_id', $request->user()->id)->delete();
-
         return redirect()->route('history.index')->with('success', 'История очищена.');
     }
 }

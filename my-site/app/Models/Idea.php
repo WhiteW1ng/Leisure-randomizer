@@ -14,10 +14,8 @@ class Idea extends Model
         'location_type'
     ];
 
-    // У таблицы ideas есть только created_at, без updated_at
     const UPDATED_AT = null;
 
-    // Связи с фильтрами
     public function seasons()
     {
         return $this->belongsToMany(Season::class, 'idea_seasons');

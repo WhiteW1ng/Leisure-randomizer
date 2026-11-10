@@ -11,7 +11,6 @@ class IdeaHistory extends Model
 
     protected $fillable = ['user_id', 'idea_id'];
 
-    // В таблице только created_at
     const UPDATED_AT = null;
 
     public function idea(): BelongsTo
