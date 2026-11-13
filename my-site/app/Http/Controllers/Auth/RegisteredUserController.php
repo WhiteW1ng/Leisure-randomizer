@@ -46,10 +46,6 @@ class RegisteredUserController extends Controller
 
         Auth::login($user);
 
-<<<<<<< HEAD
-        return redirect(route('home', absolute: false));
-=======
-        return redirect('/');
->>>>>>> c8bb101774e5a91fd1eb9bfa65342f30c67ce747
+
     }
 }
