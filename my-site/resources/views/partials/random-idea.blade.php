@@ -4,26 +4,26 @@
         <div class="flex flex-wrap items-center gap-3">
             {{-- Случайное занятие без фильтров --}}
             <button type="submit" name="mode" value="any"
-                    class="inline-flex items-center gap-2 rounded-lg bg-indigo-600 px-6 py-3 text-base font-semibold text-white shadow hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-400">
+                    class="inline-flex items-center gap-2 rounded-full bg-accent px-6 py-3 text-base font-semibold text-accent-ink shadow hover:bg-accent-hover focus:outline-none focus:ring-2 focus:ring-accent">
                 🎲 Случайное занятие
             </button>
 
             {{-- Кнопка выбора фильтров: раскрывает панель ниже --}}
             <button type="button" id="filters-toggle" aria-expanded="{{ $useFilters ? 'true' : 'false' }}" aria-controls="filters-panel"
-                    class="inline-flex items-center gap-2 rounded-lg border border-gray-300 bg-white px-5 py-3 text-base font-medium text-gray-800 shadow-sm hover:bg-gray-50 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-100 dark:hover:bg-gray-700">
+                    class="inline-flex items-center gap-2 rounded-full border border-line bg-card px-5 py-3 text-base font-medium text-ink shadow-sm hover:bg-chip">
                 ⚙️ Фильтры
             </button>
         </div>
 
-        <div id="filters-panel" class="mt-4 rounded-lg border border-gray-200 bg-white p-5 shadow-sm dark:border-gray-700 dark:bg-gray-800 {{ $useFilters ? '' : 'hidden' }}">
+        <div id="filters-panel" class="mt-4 rounded-full border border-line bg-card p-5 shadow-sm {{ $useFilters ? '' : 'hidden' }}">
             @include('partials.filter-panel')
 
             <div class="mt-5">
                 <button type="submit" name="mode" value="filters"
-                        class="rounded-lg bg-indigo-600 px-5 py-2.5 text-sm font-semibold text-white shadow hover:bg-indigo-700">
+                        class="rounded-full bg-accent px-5 py-2.5 text-sm font-semibold text-accent-ink shadow hover:bg-accent-hover">
                     Подобрать с фильтрами
                 </button>
-                <span class="ml-3 text-xs text-gray-500 dark:text-gray-400">Если ничего не отметить, фильтр не применяется.</span>
+                <span class="ml-3 text-xs text-mute">Если ничего не отметить, фильтр не применяется.</span>
             </div>
         </div>
     </form>
@@ -37,7 +37,7 @@
                     'reroll' => $useFilters ? 'filters' : 'any',
                 ])
             @else
-                <p class="rounded-lg border border-amber-200 bg-amber-50 p-4 text-amber-800">
+                <p class="rounded-full border border-warn-line bg-warn-bg p-4 text-warn-text">
                     Подходящих занятий не нашлось. Попробуйте убрать часть фильтров или нажмите «Случайное занятие».
                 </p>
             @endif

@@ -1,3 +1,63 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/*
+  Палитра сайта. Цвета из register.blade.php, записаны как «R G B»,
+  чтобы Tailwind мог делать полупрозрачные варианты (bg-accent/20 и т.п.).
+  Светлая тема: :root. Тёмная: html.dark (включается кнопкой ◐ или системной настройкой).
+*/
+@layer base {
+    :root {
+        --c-page: 243 235 227;        /* #f3ebe3 фон страницы */
+        --c-card: 255 255 255;        /* #ffffff карточки */
+        --c-field: 250 250 250;       /* #fafafa поля ввода */
+        --c-chip: 238 229 220;        /* плашки, наведение */
+        --c-line: 224 216 208;        /* #e0d8d0 рамки */
+        --c-ink: 45 45 45;            /* #2d2d2d основной текст */
+        --c-ink-soft: 90 90 90;       /* #5a5a5a */
+        --c-mute: 138 138 138;        /* #8a8a8a подписи */
+        --c-accent: 245 184 122;      /* #f5b87a кнопки */
+        --c-accent-hover: 240 169 95; /* #f0a95f */
+        --c-accent-ink: 45 45 45;     /* текст на кнопках */
+        --c-accent-text: 176 98 26;   /* #b0621a ссылки на светлом */
+        --c-navy: 47 48 80;           /* #2f3050 */
+        --c-navy-soft: 74 75 112;     /* #4a4b70 */
+        --c-ok-bg: 220 252 231;   --c-ok-line: 134 239 172;  --c-ok-text: 22 101 52;
+        --c-err-bg: 254 226 226;  --c-err-line: 252 165 165; --c-err-text: 185 28 28;
+        --c-warn-bg: 254 243 199; --c-warn-line: 252 211 77; --c-warn-text: 146 64 14;
+        color-scheme: light;
+    }
+
+    .dark {
+        --c-page: 28 25 23;           /* #1c1917 */
+        --c-card: 41 37 36;           /* #292524 */
+        --c-field: 31 27 25;          /* #1f1b19 */
+        --c-chip: 56 51 47;           /* #38332f */
+        --c-line: 68 64 60;           /* #44403c */
+        --c-ink: 245 239 233;         /* #f5efe9 */
+        --c-ink-soft: 214 205 196;    /* #d6cdc4 */
+        --c-mute: 163 154 145;        /* #a39a91 */
+        --c-accent: 245 184 122;      /* оранжевый тот же */
+        --c-accent-hover: 247 201 150;
+        --c-accent-ink: 45 45 45;
+        --c-accent-text: 245 184 122;
+        --c-navy: 37 36 58;           /* #25243a */
+        --c-navy-soft: 56 55 86;
+        --c-ok-bg: 20 50 34;   --c-ok-line: 34 100 60;  --c-ok-text: 134 239 172;
+        --c-err-bg: 69 26 26;  --c-err-line: 127 29 29; --c-err-text: 252 165 165;
+        --c-warn-bg: 66 45 15; --c-warn-line: 120 80 20; --c-warn-text: 252 211 77;
+        color-scheme: dark;
+    }
+
+    * { --tw-ring-offset-color: rgb(var(--c-card)); }
+
+    body {
+        background-color: rgb(var(--c-page));
+        color: rgb(var(--c-ink));
+    }
+
+    h1, h2 { font-family: 'Playfair Display', serif; }
+
+    input::placeholder, textarea::placeholder { color: rgb(var(--c-mute)); }
+}

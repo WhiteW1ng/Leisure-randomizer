@@ -1,6 +1,6 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
+        <h2 class="font-semibold text-xl text-ink leading-tight">
             Модерация предложенных идей
         </h2>
     </x-slot>
@@ -10,61 +10,61 @@
 
             {{-- Сообщение об успехе --}}
             @if (session('success'))
-                <div class="mb-4 p-4 bg-green-100 text-green-700 rounded-lg">
+                <div class="mb-4 p-4 bg-ok-bg text-ok-text rounded-lg">
                     {{ session('success') }}
                 </div>
             @endif
 
             {{-- Сообщение об ошибке --}}
             @if (session('error'))
-                <div class="mb-4 p-4 bg-red-100 text-red-700 rounded-lg">
+                <div class="mb-4 p-4 bg-err-bg text-err-text rounded-lg">
                     {{ session('error') }}
                 </div>
             @endif
 
-            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg p-6">
-                <h3 class="text-lg font-bold mb-4 text-gray-900 dark:text-gray-100">Всего идей: {{ $ideas->count() }}</h3>
+            <div class="bg-card overflow-hidden shadow-sm sm:rounded-lg p-6">
+                <h3 class="text-lg font-bold mb-4 text-ink">Всего идей: {{ $ideas->count() }}</h3>
 
                 @if($ideas->isEmpty())
-                    <p class="text-gray-500 dark:text-gray-400">Пока нет предложенных идей.</p>
+                    <p class="text-mute">Пока нет предложенных идей.</p>
                 @else
                     <div class="space-y-4">
                         @foreach($ideas as $idea)
                             <div class="border rounded-lg p-4 
-                                @if($idea->status === 'approved') bg-green-50 dark:bg-green-900/20 border-green-300 dark:border-green-700
-                                @elseif($idea->status === 'rejected') bg-red-50 dark:bg-red-900/20 border-red-300 dark:border-red-700
-                                @else bg-yellow-50 dark:bg-yellow-900/20 border-yellow-300 dark:border-yellow-700 @endif">
+                                @if($idea->status === 'approved') bg-ok-bg border-ok-line
+                                @elseif($idea->status === 'rejected') bg-err-bg border-err-line
+                                @else bg-warn-bg border-warn-line @endif">
                                 
                                 <div class="flex justify-between items-start mb-2">
                                     <div>
-                                        <h4 class="font-bold text-lg text-black">{{ $idea->title }}</h4>
-                                        <p class="text-sm text-gray-600 dark:text-gray-400">
+                                        <h4 class="font-bold text-lg text-ink">{{ $idea->title }}</h4>
+                                        <p class="text-sm text-ink-soft">
                                             От: {{ $idea->user->name ?? 'Неизвестно' }} 
                                             ({{ $idea->user->email ?? '' }})
                                         </p>
-                                        <p class="text-xs text-gray-500 dark:text-gray-500">
+                                        <p class="text-xs text-mute">
                                             {{ $idea->created_at->format('d.m.Y H:i') }}
                                         </p>
                                     </div>
                                     
                                     {{-- Бейдж статуса --}}
                                     <span class="px-3 py-1 rounded-full text-xs font-bold
-                                        @if($idea->status === 'approved') bg-green-200 text-green-800
-                                        @elseif($idea->status === 'rejected') bg-red-200 text-red-800
-                                        @else bg-yellow-200 text-yellow-800 @endif">
+                                        @if($idea->status === 'approved') bg-ok-line text-ok-text
+                                        @elseif($idea->status === 'rejected') bg-err-line text-err-text
+                                        @else bg-warn-line text-warn-text @endif">
                                         @if($idea->status === 'approved') Одобрено
                                         @elseif($idea->status === 'rejected') Отклонено
                                         @else На рассмотрении @endif
                                     </span>
                                 </div>
 
-                                <p class="text-gray-700 dark:text-gray-300 mb-3">{{ $idea->description }}</p>
+                                <p class="text-ink mb-3">{{ $idea->description }}</p>
 
                                 {{-- Фильтры идеи (отображаем массивы из JSON) --}}
                                 <div class="flex flex-wrap gap-2 mb-3 text-sm">
                                     @if(!empty($idea->seasons))
                                         @foreach($idea->seasons as $season)
-                                            <span class="bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 px-2 py-1 rounded">
+                                            <span class="bg-chip text-ink px-2 py-1 rounded">
                                                 {{ $season }}
                                             </span>
                                         @endforeach
@@ -72,7 +72,7 @@
                                     
                                     @if(!empty($idea->companies))
                                         @foreach($idea->companies as $company)
-                                            <span class="bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 px-2 py-1 rounded">
+                                            <span class="bg-chip text-ink px-2 py-1 rounded">
                                                 {{ $company }}
                                             </span>
                                         @endforeach
@@ -80,7 +80,7 @@
                                     
                                     @if(!empty($idea->activity_levels))
                                         @foreach($idea->activity_levels as $level)
-                                            <span class="bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 px-2 py-1 rounded">
+                                            <span class="bg-chip text-ink px-2 py-1 rounded">
                                                 {{ $level }}
                                             </span>
                                         @endforeach
@@ -88,7 +88,7 @@
                                     
                                     @if(!empty($idea->budgets))
                                         @foreach($idea->budgets as $budget)
-                                            <span class="bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 px-2 py-1 rounded">
+                                            <span class="bg-chip text-ink px-2 py-1 rounded">
                                                  {{ $budget }}
                                             </span>
                                         @endforeach
@@ -96,7 +96,7 @@
                                     
                                     @if(!empty($idea->durations))
                                         @foreach($idea->durations as $duration)
-                                            <span class="bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 px-2 py-1 rounded">
+                                            <span class="bg-chip text-ink px-2 py-1 rounded">
                                                 {{ $duration }}
                                             </span>
                                         @endforeach
@@ -104,7 +104,7 @@
                                     
                                     @if(!empty($idea->location_types))
                                         @foreach($idea->location_types as $locationType)
-                                            <span class="bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 px-2 py-1 rounded">
+                                            <span class="bg-chip text-ink px-2 py-1 rounded">
                                                 {{ $locationType }}
                                             </span>
                                         @endforeach

@@ -11,6 +11,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&family=Inter:wght@400;500&display=swap" rel="stylesheet">
 
+    @include('partials.theme-init')
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
     <style>
@@ -22,7 +23,7 @@
 
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #f3ebe3;
+            background-color: rgb(var(--c-page));
             min-height: 100vh;
             display: flex;
             flex-direction: column;
@@ -35,7 +36,7 @@
             font-family: 'Playfair Display', serif;
             font-size: 22px;
             font-weight: 500;
-            color: #2d2d2d;
+            color: rgb(var(--c-ink));
             display: flex;
             align-items: center;
             gap: 8px;
@@ -43,12 +44,12 @@
         }
 
         .brand-logo .star {
-            color: #f5b87a;
+            color: rgb(var(--c-accent));
             font-size: 18px;
         }
 
         .login-card {
-            background: #ffffff;
+            background: rgb(var(--c-card));
             border-radius: 16px;
             padding: 36px 40px 32px;
             box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
@@ -60,13 +61,13 @@
             font-family: 'Playfair Display', serif;
             font-size: 28px;
             font-weight: 600;
-            color: #2d2d2d;
+            color: rgb(var(--c-ink));
             margin-bottom: 8px;
         }
 
         .login-subtitle {
             font-size: 13px;
-            color: #8a8a8a;
+            color: rgb(var(--c-mute));
             margin-bottom: 28px;
         }
 
@@ -77,7 +78,7 @@
         .form-label {
             display: block;
             font-size: 13px;
-            color: #2d2d2d;
+            color: rgb(var(--c-ink));
             margin-bottom: 8px;
             font-weight: 400;
         }
@@ -85,17 +86,18 @@
         .form-input {
             width: 100%;
             padding: 12px 14px;
-            border: 1px solid #e0d8d0;
+            border: 1px solid rgb(var(--c-line));
             border-radius: 10px;
             font-size: 14px;
             font-family: 'Inter', sans-serif;
-            background: #fafafa;
+            background: rgb(var(--c-field));
+            color: rgb(var(--c-ink));
             outline: none;
             transition: border-color 0.2s;
         }
 
         .form-input:focus {
-            border-color: #f5b87a;
+            border-color: rgb(var(--c-accent));
         }
 
         .remember {
@@ -104,22 +106,22 @@
             gap: 8px;
             margin-bottom: 24px;
             font-size: 13px;
-            color: #5a5a5a;
+            color: rgb(var(--c-ink-soft));
             cursor: pointer;
         }
 
         .remember input[type="checkbox"] {
             width: 16px;
             height: 16px;
-            accent-color: #f5b87a;
+            accent-color: rgb(var(--c-accent));
             cursor: pointer;
         }
 
         .btn-login {
             width: 100%;
             padding: 14px;
-            background-color: #f5b87a;
-            color: #2d2d2d;
+            background-color: rgb(var(--c-accent));
+            color: rgb(var(--c-accent-ink));
             border: none;
             border-radius: 50px;
             font-size: 15px;
@@ -131,7 +133,7 @@
         }
 
         .btn-login:hover {
-            background-color: #f0a95f;
+            background-color: rgb(var(--c-accent-hover));
         }
 
         .card-footer {
@@ -141,19 +143,19 @@
         }
 
         .card-footer a {
-            color: #5a5a5a;
+            color: rgb(var(--c-ink-soft));
             text-decoration: none;
             transition: color 0.2s;
         }
 
         .card-footer a:hover {
-            color: #2d2d2d;
+            color: rgb(var(--c-ink));
         }
 
         .back-home {
             margin-top: 24px;
             font-size: 13px;
-            color: #8a8a8a;
+            color: rgb(var(--c-mute));
             text-decoration: none;
             display: flex;
             align-items: center;
@@ -162,19 +164,19 @@
         }
 
         .back-home:hover {
-            color: #2d2d2d;
+            color: rgb(var(--c-ink));
         }
 
         /* Стили для сообщений об ошибках от Breeze */
         .error-message {
-            color: #dc2626;
+            color: rgb(var(--c-err-text));
             font-size: 13px;
             margin-top: 6px;
         }
 
         .session-status {
-            background: #f0fdf4;
-            color: #166534;
+            background: rgb(var(--c-ok-bg));
+            color: rgb(var(--c-ok-text));
             padding: 10px 14px;
             border-radius: 8px;
             font-size: 13px;
@@ -266,5 +268,6 @@
     {{-- Вернуться на главную --}}
     <a href="{{ url('/') }}" class="back-home">← Вернуться на главную</a>
 
+    @include('partials.theme-toggle')
 </body>
 </html>
