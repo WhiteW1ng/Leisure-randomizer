@@ -1,6 +1,5 @@
 # input-check.md — проверка входных данных (команда 4, «Рандомайзер досуга»)
 
-Коммит с серверной проверкой: **<ВСТАВИТЬ ССЫЛКУ НА КОММИТ>**
 
 Главное правило: **настоящая проверка — на сервере** (`$request->validate()`, FormRequest). Атрибуты `minlength`/`maxlength` в HTML — только удобство для человека, обойти их можно одним запросом без браузера, поэтому на них мы не полагаемся.
 
@@ -60,7 +59,7 @@
 
 ## 4. Загрузка файлов
 
-В проекте команды 4 **загрузки файлов нет**: ни одной формы с `enctype="multipart/form-data"` или `type="file"`, нет `$request->file()`, `hasFile`, `UploadedFile`, `store()`.
+**загрузки файлов нет**: ни одной формы с `enctype="multipart/form-data"` или `type="file"`, нет `$request->file()`, `hasFile`, `UploadedFile`, `store()`.
 
 Проверка командой из корня проекта (результат — пусто):
 
@@ -70,13 +69,122 @@ grep -rn "UploadedFile\|->file(\|type=\"file\"\|hasFile\|enctype" app resources 
 
 Пятишаговая функция загрузки не нужна. На случай, если кто-то отправит файл в обычную форму, есть тест `test_file_sent_to_form_is_ignored_and_not_stored`: файл `shell.php` не сохраняется ни на одном диске.
 
-## 5. Тесты
+## 5. Скриншоты отказов сервера
+
+Сервер отклоняет неверные данные и показывает понятную ошибку. Ниже два примера (файлы лежат в папке `docs`).
+
+**Пример 1. Форма «Предложить идею»:** название из 2 символов (минимум 3), в группе «Сезон» ничего не выбрано. Сервер не принимает идею и показывает список ошибок. (input-suggest-errors.png)
+
+**Пример 2. Регистрация:** пароль из 9 символов (минимум 10). Сервер не создаёт пользователя и показывает ошибку у поля пароля.
+(input-register-password.png)
+
+Остальные случаи (слишком длинные значения, значения не из справочника, `status` и `user_id` в запросе, нецифровые номера в адресе, статус не из белого списка) проверяются автотестами из раздела 6.
+
+## 6. Тесты
 
 Файл `tests/Feature/InputValidationTest.php` (регистрация, вход, фильтры, page, «Предложить идею», цифровые id, статусы).
 Вывод `php artisan test`:
 
 ```
-<ВСТАВИТЬ ВЫВОД php artisan test>
-```
+   PASS  Tests\Unit\ExampleTest
+  ✓ that true is true
 
-Скриншоты отказов (по 1–2): <ВСТАВИТЬ — например, форма «Предложить идею» с ошибками «Название должно быть не короче 3 символов»>.
+   PASS  Tests\Feature\Auth\AuthenticationTest
+  ✓ login screen can be rendered                                                                                                                                        5.06s  
+  ✓ users can authenticate using the login screen                                                                                                                       1.78s  
+  ✓ users can not authenticate with invalid password                                                                                                                    0.28s  
+  ✓ users can logout                                                                                                                                                    0.02s  
+
+   PASS  Tests\Feature\Auth\EmailVerificationTest
+  ✓ email verification screen can be rendered                                                                                                                           0.24s  
+  ✓ email can be verified                                                                                                                                               0.15s  
+  ✓ email is not verified with invalid hash                                                                                                                             0.14s  
+
+   PASS  Tests\Feature\Auth\PasswordConfirmationTest
+  ✓ confirm password screen can be rendered                                                                                                                             0.26s  
+  ✓ password can be confirmed                                                                                                                                           0.01s  
+  ✓ password is not confirmed with invalid password                                                                                                                     0.21s  
+
+   PASS  Tests\Feature\Auth\PasswordResetTest
+  ✓ reset password link screen can be rendered                                                                                                                          0.29s  
+  ✓ reset password link can be requested                                                                                                                                0.79s  
+  ✓ reset password screen can be rendered                                                                                                                               0.65s  
+  ✓ password can be reset with valid token                                                                                                                              0.23s  
+
+   PASS  Tests\Feature\Auth\PasswordUpdateTest
+  ✓ password can be updated                                                                                                                                             0.03s  
+  ✓ correct password must be provided to update password                                                                                                                0.03s  
+
+   PASS  Tests\Feature\Auth\RegistrationTest
+  ✓ registration screen can be rendered                                                                                                                                 0.08s  
+  ✓ new users can register                                                                                                                                              0.04s  
+
+   PASS  Tests\Feature\CatalogFavoritesHistoryTest
+  ✓ catalog is public and shows only active ideas                                                                                                                       1.26s  
+  ✓ catalog filters                                                                                                                                                     0.02s  
+  ✓ catalog is paginated                                                                                                                                                0.03s  
+  ✓ guest is redirected from favorites and toggle                                                                                                                       0.03s  
+  ✓ user can add and remove favorite                                                                                                                                    0.11s  
+  ✓ cannot favorite hidden idea                                                                                                                                         0.04s  
+  ✓ favorites are private to user                                                                                                                                       0.01s  
+  ✓ random idea is recorded in history for logged in user                                                                                                               0.26s  
+  ✓ guest roll is not recorded                                                                                                                                          0.01s  
+  ✓ history requires login and is private                                                                                                                               0.02s  
+  ✓ user can clear only own history                                                                                                                                     0.01s  
+  ✓ admin link visible only for admin                                                                                                                                   0.01s  
+  ✓ regular user cannot open moderation                                                                                                                                 0.04s  
+
+   PASS  Tests\Feature\ExampleTest
+  ✓ the application returns a successful response                                                                                                                       0.01s  
+
+   PASS  Tests\Feature\InputValidationTest
+  ✓ registration rejects too long and too short values                                                                                                                  0.04s  
+  ✓ password of 9 characters is rejected and long phrase with spaces is accepted                                                                                        0.01s  
+  ✓ registration ignores is admin from request                                                                                                                          0.01s  
+  ✓ login rejects oversized password                                                                                                                                    0.01s  
+  ✓ filter values are limited                                                                                                                                           0.01s  
+  ✓ page number must be an integer in range                                                                                                                             0.04s  
+  ✓ suggest shows human messages per field                                                                                                                              0.09s  
+  ✓ suggest title length boundaries                                                                                                                                     0.03s  
+  ✓ suggest rejects values not from reference lists                                                                                                                     0.02s  
+  ✓ suggest accepts valid idea and server sets service fields                                                                                                           0.01s  
+  ✓ suggest form page shows all errors in one list                                                                                                                      0.15s  
+  ✓ file sent to form is ignored and not stored                                                                                                                         0.62s  
+  ✓ non numeric ids in urls give 404                                                                                                                                    0.01s  
+  ✓ status outside the whitelist cannot be saved                                                                                                                        0.01s  
+  ✓ suggested status outside the whitelist cannot be saved                                                                                                              0.01s  
+
+   PASS  Tests\Feature\ProfileTest
+  ✓ profile page is displayed                                                                                                                                           1.04s  
+  ✓ profile information can be updated                                                                                                                                  0.05s  
+  ✓ email verification status is unchanged when the email address is unchanged                                                                                          0.01s  
+  ✓ user can delete their account                                                                                                                                       0.01s  
+  ✓ correct password must be provided to delete account                                                                                                                 0.01s  
+
+   PASS  Tests\Feature\RandomIdeaTest
+  ✓ home page is public and has buttons                                                                                                                                 0.01s  
+  ✓ random button returns active idea only                                                                                                                              0.04s  
+  ✓ filters limit the choice                                                                                                                                            0.05s  
+  ✓ any mode ignores selected filters                                                                                                                                   0.01s  
+  ✓ message when nothing found                                                                                                                                          0.01s  
+  ✓ bad mode is rejected                                                                                                                                                0.01s  
+  ✓ html in idea is escaped                                                                                                                                             0.01s  
+  ✓ guest cannot open suggest form and is sent to login                                                                                                                 0.01s  
+  ✓ logged in user can open suggest form                                                                                                                                0.02s  
+  ✓ home is the only main page and dashboard is gone                                                                                                                    0.01s  
+
+   PASS  Tests\Feature\SecurityAuditTest
+  ✓ sql payload in filter is treated as data                                                                                                                            0.02s  
+  ✓ sql payload in catalog filter is treated as data                                                                                                                    0.01s  
+  ✓ script in idea title is escaped in catalog                                                                                                                          0.01s  
+  ✓ script in suggested idea is escaped for admin                                                                                                                       0.11s  
+  ✓ suggest rejects unknown filter value and long text                                                                                                                  0.01s  
+  ✓ suggest ignores status and user id from request                                                                                                                     0.01s  
+  ✓ regular user cannot approve                                                                                                                                         0.01s  
+  ✓ repeated approve does not create duplicate idea                                                                                                                     0.03s  
+  ✓ reviewed idea cannot be rejected afterwards                                                                                                                         0.01s  
+
+  Tests:    72 passed (286 assertions)
+  Duration: 26.41s
+
+```
