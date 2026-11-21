@@ -74,12 +74,13 @@ class SuggestedIdeaController extends Controller
         $validated = $request->validate($rules, $messages);
 
         // 2. Служебные поля берём только с сервера, не из запроса
-        $validated['user_id'] = auth()->id();
         $validated['status'] = 'pending';
         $validated['created_at'] = now();
 
         // 3. Сохраняем в базу
-        SuggestedIdea::create($validated);
+        $suggested = new SuggestedIdea($validated);
+        $suggested->user_id = auth()->id();
+        $suggested->save();
 
         // 4. Возвращаем пользователя обратно с сообщением об успехе
         return redirect()->route('home')->with('success', 'Спасибо! Твоя идея отправлена на рассмотрение.');

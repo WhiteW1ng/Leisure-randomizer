@@ -140,8 +140,8 @@ class CatalogFavoritesHistoryTest extends TestCase
         $a = User::factory()->create();
         $b = User::factory()->create();
         $idea = $this->idea('Лыжи');
-        IdeaHistory::create(['user_id' => $a->id, 'idea_id' => $idea->id]);
-        IdeaHistory::create(['user_id' => $b->id, 'idea_id' => $idea->id]);
+        IdeaHistory::forceCreate(['user_id' => $a->id, 'idea_id' => $idea->id]);
+        IdeaHistory::forceCreate(['user_id' => $b->id, 'idea_id' => $idea->id]);
 
         $this->actingAs($a)->delete('/history')->assertRedirect('/history');
 
@@ -164,6 +164,6 @@ class CatalogFavoritesHistoryTest extends TestCase
     public function test_regular_user_cannot_open_moderation(): void
     {
         $this->actingAs(User::factory()->create())
-            ->get('/admin/suggested-ideas')->assertRedirect('/');
+            ->get('/admin/suggested-ideas')->assertForbidden();
     }
 }

@@ -35,7 +35,7 @@ class SecurityAuditTest extends TestCase
     {
         Season::firstOrCreate(['name' => 'зима']);
 
-        return SuggestedIdea::create([
+        return SuggestedIdea::forceCreate([
             'user_id' => User::factory()->create()->id,
             'title' => $title,
             'description' => 'Описание',
@@ -146,7 +146,7 @@ class SecurityAuditTest extends TestCase
 
         $this->actingAs(User::factory()->create())
             ->post('/admin/suggested-ideas/'.$suggested->id.'/approve')
-            ->assertRedirect('/');
+            ->assertForbidden();
 
         $this->assertSame('pending', $suggested->fresh()->status);
         $this->assertSame(0, Idea::count());

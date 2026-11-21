@@ -261,7 +261,7 @@ class InputValidationTest extends TestCase
     {
         $this->expectException(InvalidArgumentException::class);
 
-        SuggestedIdea::create([
+        SuggestedIdea::forceCreate([
             'user_id' => User::factory()->create()->id,
             'title' => 'Идея',
             'status' => 'hacked',
