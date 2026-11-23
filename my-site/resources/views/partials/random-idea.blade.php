@@ -46,7 +46,7 @@
 </section>
 
 {{-- Открытие и закрытие панели фильтров (без внешних библиотек) --}}
-<script>
+<script nonce="{{ request()->attributes->get('csp_nonce') }}">
     (function () {
         var btn = document.getElementById('filters-toggle');
         var panel = document.getElementById('filters-panel');

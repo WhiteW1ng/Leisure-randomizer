@@ -6,6 +6,7 @@ use App\Models\Idea;
 use App\Models\SuggestedIdea;
 use App\Support\Statuses;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\URL;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Validation\Rules\Password;
 
@@ -18,6 +19,11 @@ class AppServiceProvider extends ServiceProvider
 
     public function boot(): void
     {
+        // На боевом сервере все ссылки и редиректы строим только по https
+        if ($this->app->environment('production')) {
+            URL::forceScheme('https');
+        }
+
         Password::defaults(fn () => Password::min(10));
 
         // Номера в адресах (/favorites/{idea}, /admin/suggested-ideas/{id}/...) — только цифры.

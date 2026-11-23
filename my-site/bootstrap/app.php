@@ -15,6 +15,9 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->alias([
         'admin' => \App\Http\Middleware\AdminMiddleware::class,
         ]);
+
+        // Заголовки безопасности (CSP, X-Frame-Options, HSTS и др.) на каждый ответ
+        $middleware->append(\App\Http\Middleware\SecurityHeaders::class);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         $exceptions->shouldRenderJsonWhen(

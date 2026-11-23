@@ -33,7 +33,8 @@
                 <div class="mt-6">{{ $entries->links() }}</div>
 
                 <form method="POST" action="{{ route('history.clear') }}" class="mt-6"
-                      onsubmit="return confirm('Очистить всю историю?');">
+                      x-data
+                      x-on:submit="if (! confirm('Очистить всю историю?')) $event.preventDefault()">
                     @csrf
                     @method('DELETE')
                     <button type="submit" class="rounded-lg border border-err-line px-4 py-2 text-sm font-medium text-err-text hover:bg-err-bg">

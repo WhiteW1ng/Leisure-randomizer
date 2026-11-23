@@ -116,20 +116,16 @@
                                     <div class="flex gap-2">
                                         <form method="POST" action="{{ route('admin.suggested-ideas.approve', $idea->id) }}">
                                             @csrf
-                                            <button type="submit" 
-                                                    style="background-color: #16a34a; color: white; font-weight: bold; padding: 8px 16px; border-radius: 6px; border: none; cursor: pointer;"
-                                                    onmouseover="this.style.backgroundColor='#15803d'" 
-                                                    onmouseout="this.style.backgroundColor='#16a34a'">
+                                            <button type="submit"
+                                                    class="rounded-md bg-green-600 px-4 py-2 font-bold text-white hover:bg-green-700">
                                                 Одобрить
                                             </button>
                                         </form>
 
                                         <form method="POST" action="{{ route('admin.suggested-ideas.reject', $idea->id) }}">
                                             @csrf
-                                            <button type="submit" 
-                                                    style="background-color: #dc2626; color: white; font-weight: bold; padding: 8px 16px; border-radius: 6px; border: none; cursor: pointer;"
-                                                    onmouseover="this.style.backgroundColor='#b91c1c'" 
-                                                    onmouseout="this.style.backgroundColor='#dc2626'">
+                                            <button type="submit"
+                                                    class="rounded-md bg-red-600 px-4 py-2 font-bold text-white hover:bg-red-700">
                                                 Отклонить
                                             </button>
                                         </form>

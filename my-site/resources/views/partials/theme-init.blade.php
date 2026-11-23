@@ -1,5 +1,5 @@
 {{-- Ставит тёмную тему до отрисовки страницы (чтобы не мигало). Выбор хранится в браузере. --}}
-<script>
+<script nonce="{{ request()->attributes->get('csp_nonce') }}">
     (function () {
         try {
             var t = localStorage.getItem('theme');
